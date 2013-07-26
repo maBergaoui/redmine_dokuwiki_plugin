@@ -1,0 +1,102 @@
+require "xmlrpc/client"
+require "acl_utils"
+require_dependency 'members_controller'
+
+class MembersController
+    
+=begin
+    def get_user_roles (user, project)
+      roles =[]
+      h = project.users_by_role
+      h.each do|role, users|
+        if h[role].include?(user)
+          roles << role
+          puts "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+        end
+      end
+    end
+=end
+
+    def get_roles(user,project)
+      member = Member.where("user_id = ? AND project_id = ?",user.id,project.id).first
+      member_roles = MemberRole.where("member_id = ?", member.id).all
+      roles = []
+      member_roles.each do |mr|
+        role = Role.find(mr.role_id)
+        roles << role
+      end
+      return roles
+    end
+    
+    def create_with_create_dokuwiki_rule
+    #Retrieving informations
+    user_ids = params[:membership].dup.delete(:user_ids)
+    current_project = @project 
+    
+    #Call to the orignial method
+    create_without_create_dokuwiki_rule
+    
+    #Syncing the ACLs
+    user_ids.each do |user_id|
+      begin
+        roles = get_roles(User.find(user_id), current_project)
+        permission = get_permission(roles)
+        update_acl(current_project.name,User.find(user_id).login,permission)  
+      rescue
+        roles = get_roles(Group.find(user_id), current_project)
+        permission = get_permission(roles)
+        update_acl(current_project.name,"@"+Group.find(user_id).name,permission)
+      end
+    end
+    
+  end
+  alias_method_chain :create, :create_dokuwiki_rule
+  
+  
+  
+  def update_with_update_dokuwiki_rule
+    #Retrieving informations
+    member_to_update = @member
+    current_project = @project 
+    
+    #Call to the orignial method
+    update_without_update_dokuwiki_rule
+    
+    #Syncing the ACLs
+    user_id = member_to_update.user_id
+    begin
+      roles = get_roles(User.find(user_id), current_project)
+      permission = get_permission(roles)
+      update_acl(current_project.name,User.find(user_id).login,permission)  
+    rescue
+      roles = get_roles(Group.find(user_id), current_project)
+      permission = get_permission(roles)
+      update_acl(current_project.name,"@"+Group.find(user_id).name,permission)
+    end
+    
+  end
+  alias_method_chain :update, :update_dokuwiki_rule
+  
+
+
+  def destroy_with_destroy_dokuwiki_rule
+    #Retrieving informations
+    member_to_destroy = @member
+    current_project = @project 
+    
+    #Call to the orignial method
+    destroy_without_destroy_dokuwiki_rule
+    
+    #Syncing the ACLs
+    user_id = member_to_destroy.user_id
+    begin
+      delete_acl(current_project.name,User.find(user_id).login)  
+    rescue
+      delete_acl(current_project.name,"@"+Group.find(user_id).name)
+    end
+    
+    
+  end
+  alias_method_chain :destroy, :destroy_dokuwiki_rule
+
+end
