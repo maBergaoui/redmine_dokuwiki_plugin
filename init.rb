@@ -18,7 +18,8 @@
 require 'redmine'
 require 'member_hooks'
 require 'user_hooks'
-#require 'group_hooks'
+require 'group_hooks'
+require 'project_hooks'
 
 Rails.logger.info 'Starting dokuWiki plugin for Redmine'
 

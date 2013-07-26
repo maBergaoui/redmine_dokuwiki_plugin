@@ -22,6 +22,7 @@ def delete_acl(scope,user)
                               nil)
   begin
     puts server.call("dokuwiki.delAcl",scope,user)
+    puts server.call("dokuwiki.delAcl",scope+":*",user)
   rescue XMLRPC::FaultException => e
     puts "Error: "
     puts e.faultCode
@@ -42,8 +43,10 @@ def update_acl(scope,user,permission)
                               nil)
   begin
     puts server.call("dokuwiki.delAcl",scope,user)
+    puts server.call("dokuwiki.delAcl",scope+":*",user)
     if permission != 0
-      puts server.call("dokuwiki.addAcl",scope,user,permission)  
+      puts server.call("dokuwiki.addAcl",scope,user,permission)
+      puts server.call("dokuwiki.addAcl",scope+":*",user,permission)  
     end
   rescue XMLRPC::FaultException => e
     puts "Error: "

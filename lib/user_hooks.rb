@@ -3,11 +3,11 @@ require "acl_utils"
 require_dependency 'users_controller'
 
 class UsersController
-  def destroy_with_destroy_dokuwiki_rule
+  def destroy_with_destroy_dokuwiki
     #Retrieving informations
     user_to_destroy = @user
     
-    #Syncing the ACLs
+    #Synchronising the ACLs
     scopes = []
     all_projects = Project.all
     all_projects.each do|project|
@@ -22,12 +22,12 @@ class UsersController
     end
     
     #Call to the orignial method
-    destroy_without_destroy_dokuwiki_rule
+    destroy_without_destroy_dokuwiki
     
   end
-  alias_method_chain :destroy, :destroy_dokuwiki_rule
+  alias_method_chain :destroy, :destroy_dokuwiki
   
-  def edit_membership_with_edit_membership_dokuwiki_rule
+  def edit_membership_with_edit_membership_dokuwiki
     #Retrieving informations
     user = User.find(params[:id])
     if params[:membership]["project_id"]
@@ -37,23 +37,23 @@ class UsersController
     end
         
     #Call to the orignial method
-    edit_membership_without_edit_membership_dokuwiki_rule
+    edit_membership_without_edit_membership_dokuwiki
     
-    #Syncing the ACLs
+    #Synchronising the ACLs
     roles = get_roles(user, project)
     permission = get_permission(roles)
     update_acl(project.name,user.login,permission)
   end
-  alias_method_chain :edit_membership, :edit_membership_dokuwiki_rule
+  alias_method_chain :edit_membership, :edit_membership_dokuwiki
 
-  def edit_with_edit_dokuwiki_rule
+  def edit_with_edit_dokuwiki
     #Retrieving informations
     user = User.find(params[:id])
     
     #Call to the orignial method
-    edit_without_edit_dokuwiki_rule
+    edit_without_edit_dokuwiki
     
-    #Syncing the ACLs
+    #Synchronising the ACLs
     projects = []
     all_projects = Project.all
     all_projects.each do|project|
@@ -68,6 +68,6 @@ class UsersController
       update_acl(project.name,user.login,permission)
     end
   end
-  alias_method_chain :edit, :edit_dokuwiki_rule
+  alias_method_chain :edit, :edit_dokuwiki
 
 end
