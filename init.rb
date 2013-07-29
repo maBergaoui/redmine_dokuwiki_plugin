@@ -3,7 +3,6 @@ require 'member_patch'
 require 'user_patch'
 require 'group_patch'
 require 'project_patch'
-require 'account_patch'
 
 Rails.logger.info 'Starting dokuWiki plugin for Redmine'
 

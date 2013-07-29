@@ -53,32 +53,6 @@ def update_acl(scope,user,permission)
 end
 
 #Authentificate a user
-def login_dokuwiki(login,pwd)
-=begin
-  server = create_xmlrpc_server
-  begin
-    puts server.call("dokuwiki.login",login,pwd)
-  rescue XMLRPC::FaultException => e
-    puts "Error: "
-    puts e.faultCode
-    puts e.faultString
-  end 
-=end
-  
-end
-
-def logoff_dokuwiki
-  server = create_xmlrpc_server
-  begin
-    puts server.call("dokuwiki.remoteLogoff")
-  rescue XMLRPC::FaultException => e
-    puts "Error: "
-    puts e.faultCode
-    puts e.faultString
-  end           
-end
-
-#Authentificate a user
 def logoff_dokuwiki()
   server = create_xmlrpc_server
   begin
