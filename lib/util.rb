@@ -1,4 +1,6 @@
 require "xmlrpc/client"
+require 'net/http'
+
 
 $role_permission = { "none" => 0,
                      "read" => 1,
@@ -8,10 +10,8 @@ $role_permission = { "none" => 0,
                      "delete" => 16
                    }
                    
-                   
-#Call to the xmlrpc api to delete a rule
-def delete_acl(scope,user)
-  server = XMLRPC::Client.new(Setting.plugin_dokuwiki['dokuwiki_xmlrpc_host'],
+def create_xmlrpc_server
+  return XMLRPC::Client.new(Setting.plugin_dokuwiki['dokuwiki_xmlrpc_host'],
                               Setting.plugin_dokuwiki['dokuwiki_xmlrpc_location'],
                               nil,
                               nil,
@@ -20,6 +20,11 @@ def delete_acl(scope,user)
                               Setting.plugin_dokuwiki['dokuwiki_password'],
                               nil,
                               nil)
+end
+
+#Call to the xmlrpc api to delete a rule
+def delete_acl(scope,user)
+  server = create_xmlrpc_server
   begin
     puts server.call("dokuwiki.delAcl",scope,user)
     puts server.call("dokuwiki.delAcl",scope+":*",user)
@@ -32,15 +37,7 @@ end
 
 #Call to the xmlrpc api to update/create a rule
 def update_acl(scope,user,permission)
-  server = XMLRPC::Client.new(Setting.plugin_dokuwiki['dokuwiki_xmlrpc_host'],
-                              Setting.plugin_dokuwiki['dokuwiki_xmlrpc_location'],
-                              nil,
-                              nil,
-                              nil,
-                              Setting.plugin_dokuwiki['dokuwiki_admin'],
-                              Setting.plugin_dokuwiki['dokuwiki_password'],
-                              nil,
-                              nil)
+  server = create_xmlrpc_server
   begin
     puts server.call("dokuwiki.delAcl",scope,user)
     puts server.call("dokuwiki.delAcl",scope+":*",user)
@@ -54,6 +51,45 @@ def update_acl(scope,user,permission)
     puts e.faultString
   end                          
 end
+
+#Authentificate a user
+def login_dokuwiki(login,pwd)
+=begin
+  server = create_xmlrpc_server
+  begin
+    puts server.call("dokuwiki.login",login,pwd)
+  rescue XMLRPC::FaultException => e
+    puts "Error: "
+    puts e.faultCode
+    puts e.faultString
+  end 
+=end
+  
+end
+
+def logoff_dokuwiki
+  server = create_xmlrpc_server
+  begin
+    puts server.call("dokuwiki.remoteLogoff")
+  rescue XMLRPC::FaultException => e
+    puts "Error: "
+    puts e.faultCode
+    puts e.faultString
+  end           
+end
+
+#Authentificate a user
+def logoff_dokuwiki()
+  server = create_xmlrpc_server
+  begin
+    puts server.call("dokuwiki.remoteLogoff")
+  rescue XMLRPC::FaultException => e
+    puts "Error: "
+    puts e.faultCode
+    puts e.faultString
+  end           
+end
+
 
 #Get the permission value for a list of roles
 def get_permission(roles)
