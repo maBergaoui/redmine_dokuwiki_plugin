@@ -2,7 +2,7 @@ require "xmlrpc/client"
 require 'net/http'
 
 
-$role_permission = { "none" => 0,
+$permission_value = { "none" => 0,
                      "read" => 1,
                      "edit" => 2,
                      "create" => 4,
@@ -26,8 +26,8 @@ end
 def delete_acl(scope,user)
   server = create_xmlrpc_server
   begin
-    puts server.call("dokuwiki.delAcl",scope,user)
-    puts server.call("dokuwiki.delAcl",scope+":*",user)
+    puts server.call("plugin.acl.delAcl",scope,user)
+    puts server.call("plugin.acl.delAcl",scope+":*",user)
   rescue XMLRPC::FaultException => e
     puts "Error: "
     puts e.faultCode
@@ -39,11 +39,11 @@ end
 def update_acl(scope,user,permission)
   server = create_xmlrpc_server
   begin
-    puts server.call("dokuwiki.delAcl",scope,user)
-    puts server.call("dokuwiki.delAcl",scope+":*",user)
+    puts server.call("plugin.acl.delAcl",scope,user)
+    puts server.call("plugin.acl.delAcl",scope+":*",user)
     if permission != 0
-      puts server.call("dokuwiki.addAcl",scope,user,permission)
-      puts server.call("dokuwiki.addAcl",scope+":*",user,permission)  
+      puts server.call("plugin.acl.addAcl",scope,user,permission)
+      puts server.call("plugin.acl.addAcl",scope+":*",user,permission)  
     end
   rescue XMLRPC::FaultException => e
     puts "Error: "
@@ -56,7 +56,7 @@ end
 def logoff_dokuwiki()
   server = create_xmlrpc_server
   begin
-    puts server.call("dokuwiki.remoteLogoff")
+    puts server.call("plugin.acl.remoteLogoff")
   rescue XMLRPC::FaultException => e
     puts "Error: "
     puts e.faultCode
@@ -69,7 +69,7 @@ end
 def get_permission(roles)
   permission = 0
   roles.each do|role|
-    aux = $role_permission[Setting.plugin_dokuwiki['roles_'+role.name]]
+    aux = $permission_value[Setting.plugin_dokuwiki['roles_'+role.name]]
     if aux > permission
       permission = aux
     end

@@ -8,9 +8,9 @@ Rails.logger.info 'Starting dokuWiki plugin for Redmine'
 
 Redmine::Plugin.register :dokuwiki do
   name 'DokuWiki Plugin'
-  author 'Eurogiciel'
+  author 'Groupe Eurogiciel'
   description 'A plugin which synchronize dokuwiki with a redmine project'
-  version '1.0'
+  version '0.1'
 
   settings :default => {}, :partial => 'settings/dokuwiki_settings'
 

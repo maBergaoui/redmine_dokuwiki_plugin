@@ -72,7 +72,7 @@ module DokuWikiPlugin
       end
       
     
-      #Called when adding a user to a project via the user administration page
+      #Called when adding/removing a user to/from a group via the user administration page
       def edit_with_edit_dokuwiki
         #Retrieving informations
         user = User.find(params[:id])
