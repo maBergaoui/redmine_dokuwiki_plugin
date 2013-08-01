@@ -2,9 +2,7 @@
 
 # Author #
 * Groupe Eurogiciel
-
 # Installation #
-
 ### DokuWiki version > 2013-05-10a "Weatherwax" ###
 1. Download the plugin source code to REDMINE_PATH/plugins/
 2. Restart Redmine
