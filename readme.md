@@ -39,3 +39,6 @@
     </pre>
 3. Restart Redmine
 
+#TODO#
+* Automate DokuWiki login and logout
+* Use group ACL rules instead of handling ACL rules user by user
