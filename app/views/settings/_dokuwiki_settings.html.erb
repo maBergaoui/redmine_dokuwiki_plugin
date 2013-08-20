@@ -8,6 +8,16 @@
 		<br/>
 	</p>
 	<p>
+		<label><%= l(:dokuwiki_xmlrpc_host) %></label>
+		<%= text_field_tag 'settings[dokuwiki_xmlrpc_host]', @settings['dokuwiki_xmlrpc_host'] %>
+		<br/>
+	</p>
+	<p>
+		<label><%= l(:dokuwiki_xmlrpc_port) %></label>
+		<%= text_field_tag 'settings[dokuwiki_xmlrpc_port]', @settings['dokuwiki_xmlrpc_port'] %>
+		<br/>
+	</p>
+	<p>
 		<label><%= l(:dokuwiki_xmlrpc_location) %></label>
 		<%= text_field_tag 'settings[dokuwiki_xmlrpc_location]', @settings['dokuwiki_xmlrpc_location'] %>
 		<br/>

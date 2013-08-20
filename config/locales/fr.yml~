@@ -1,9 +1,0 @@
-fr:
-  dokuwiki_configuration: Configuration de DokuWiki
-  dokuwiki_site: URL de DokuWiki
-  dokuwiki_xmlrpc_host: Hôte de l'api XMLRPC de dokuWiki
-  dokuwiki_xmlrpc_port: Port de l'api XMLRPC de dokuWiki
-  dokuwiki_xmlrpc_location: Adresse de l'api XMLRPC de dokuWiki
-  dokuwiki_admin: Login de l'administrateur de DokuWiki
-  dokuwiki_password: Mot de passe de l'administrateur de DokuWiki
-  roles_configuration_dokuwiki: Configuration des rôles pour DokuWiki

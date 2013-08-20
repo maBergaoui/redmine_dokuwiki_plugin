@@ -1,6 +1,8 @@
 en:
   dokuwiki_configuration: DokuWiki Configuration
   dokuwiki_site: DokuWiki Site
+  dokuwiki_xmlrpc_host: DokuWiki XMLRPC Host
+  dokuwiki_xmlrpc_port: DokuWiki XMLRPC Port
   dokuwiki_xmlrpc_location: DokuWiki XMLRPC Location
   dokuwiki_admin: Dokuwiki Administrator's Username
   dokuwiki_password: Dokuwiki Administrator's Password
