@@ -6,13 +6,13 @@ require 'project_patch'
 
 Rails.logger.info 'Starting dokuWiki plugin for Redmine'
 
-Redmine::Plugin.register :redmine_dokuwiki_plugin do
+Redmine::Plugin.register :dokuwiki do
   name 'DokuWiki Plugin'
   author 'Groupe Eurogiciel'
   description 'A plugin which synchronize dokuwiki with a redmine project'
   version '0.1'
 
-  settings :default => {}, :partial => 'settings/redmine_dokuwiki_plugin_settings'
+  settings :default => {}, :partial => 'settings/dokuwiki_settings'
 
   # This plugin adds a project module
   # It can be enabled/disabled at project level (Project settings -> Modules)

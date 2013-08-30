@@ -1,0 +1,3 @@
+RedmineApp::Application.routes.draw do  
+  match 'redmine_dokuwiki_plugin/show', :to => 'redmine_dokuwiki_plugin#show'
+end

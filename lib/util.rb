@@ -11,13 +11,13 @@ $permission_value = { "none" => 0,
                    }
                    
 def create_xmlrpc_server
-  return XMLRPC::Client.new(Setting.plugin_dokuwiki['dokuwiki_xmlrpc_host'],
-                              Setting.plugin_dokuwiki['dokuwiki_xmlrpc_location'],
-							  Setting.plugin_dokuwiki['dokuwiki_xmlrpc_port'],
+  return XMLRPC::Client.new(Setting.plugin_redmine_dokuwiki_plugin['dokuwiki_xmlrpc_host'],
+                              Setting.plugin_redmine_dokuwiki_plugin['dokuwiki_xmlrpc_location'],
+							  Setting.plugin_redmine_dokuwiki_plugin['dokuwiki_xmlrpc_port'],
                               nil,
                               nil,
-                              Setting.plugin_dokuwiki['dokuwiki_admin'],
-                              Setting.plugin_dokuwiki['dokuwiki_password'],
+                              Setting.plugin_redmine_dokuwiki_plugin['dokuwiki_admin'],
+                              Setting.plugin_redmine_dokuwiki_plugin['dokuwiki_password'],
                               nil,
                               nil)
 end
@@ -69,7 +69,7 @@ end
 def get_permission(roles)
   permission = 0
   roles.each do|role|
-    aux = $permission_value[Setting.plugin_dokuwiki['roles_'+role.name]]
+    aux = $permission_value[Setting.plugin_redmine_dokuwiki_plugin['roles_'+role.name]]
     if aux > permission
       permission = aux
     end

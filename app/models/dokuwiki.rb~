@@ -20,7 +20,7 @@ require 'redmine'
 class Dokuwiki
   # get the dokuwiki page
   def self.get_tab_text(project)
-       tab_text = '<iframe src="http://' + Setting.plugin_redmine_dokuwiki_plugin['dokuwiki_site'] + '/doku.php?id='+project.name  + '" frameborder="0" width="100%" height="600" style="border: 0"/>'
+       tab_text = '<iframe src="http://' + Setting.plugin_dokuwiki['dokuwiki_site'] + '/doku.php?id='+project.name  + '" frameborder="0" width="100%" height="600" style="border: 0"/>'
   end
 
 end

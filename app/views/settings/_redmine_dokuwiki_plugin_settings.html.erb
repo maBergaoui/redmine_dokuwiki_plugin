@@ -1,0 +1,56 @@
+<fieldset>
+	<legend>
+		<%= l(:dokuwiki_configuration) %>
+	</legend>
+	<p>
+		<label><%= l(:dokuwiki_site) %></label>
+		<%= text_field_tag 'settings[dokuwiki_site]', @settings['dokuwiki_site'] %>
+		<br/>
+	</p>
+	<p>
+		<label><%= l(:dokuwiki_xmlrpc_host) %></label>
+		<%= text_field_tag 'settings[dokuwiki_xmlrpc_host]', @settings['dokuwiki_xmlrpc_host'] %>
+		<br/>
+	</p>
+	<p>
+		<label><%= l(:dokuwiki_xmlrpc_port) %></label>
+		<%= text_field_tag 'settings[dokuwiki_xmlrpc_port]', @settings['dokuwiki_xmlrpc_port'] %>
+		<br/>
+	</p>
+	<p>
+		<label><%= l(:dokuwiki_xmlrpc_location) %></label>
+		<%= text_field_tag 'settings[dokuwiki_xmlrpc_location]', @settings['dokuwiki_xmlrpc_location'] %>
+		<br/>
+	</p>
+	<p>
+		<label><%= l(:dokuwiki_admin) %></label>
+		<%= text_field_tag 'settings[dokuwiki_admin]', @settings['dokuwiki_admin'] %>
+		<br/>
+	</p>
+	<p>
+		<label><%= l(:dokuwiki_password) %></label>
+		<%= password_field_tag 'settings[dokuwiki_password]', @settings['dokuwiki_password'] %>
+		<br/>
+	</p>
+</fieldset>
+
+<% all_roles = Role.find :all %>
+<% all_roles_sorted = all_roles.sort_by {|role| role.name} %>
+
+<fieldset>
+	<legend>
+		<%= l(:roles_configuration_dokuwiki) %>
+	</legend>
+
+	<% all_roles_sorted.each do |role| %>
+	<p>
+		<label><%= role.name %></label>
+		&nbsp;&nbsp;&nbsp;&nbsp;<%= radio_button_tag 'settings[roles_'+role.name+']', 'none', @settings['roles_'+role.name]=='none' %> None
+		&nbsp;<%= radio_button_tag 'settings[roles_'+role.name+']', 'read', @settings['roles_'+role.name]=='read' %> Read
+		&nbsp;<%= radio_button_tag 'settings[roles_'+role.name+']', 'edit', @settings['roles_'+role.name]=='edit' %> Edit
+		&nbsp;<%= radio_button_tag 'settings[roles_'+role.name+']', 'create', @settings['roles_'+role.name]=='create' %> Create
+		&nbsp;<%= radio_button_tag 'settings[roles_'+role.name+']', 'upload', @settings['roles_'+role.name]=='upload' %> Upload
+		&nbsp;<%= radio_button_tag 'settings[roles_'+role.name+']', 'delete', @settings['roles_'+role.name]=='delete' %> Delete
+	</p>
+	<% end %>
+</fieldset>
