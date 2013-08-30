@@ -2,9 +2,7 @@
 <% all_roles_sorted = all_roles.sort_by {|role| role.name} %>
 
 <% all_roles_sorted.each do |role| %>
-	<%  if @settings['roles_'+role.name]== nil %>
-		<%  @settings['roles_'+role.name]='none' %>
-	<% end %>
+	<% @settings['roles_'+role.name]='none' %>
 <% end %>
 
 <fieldset>
