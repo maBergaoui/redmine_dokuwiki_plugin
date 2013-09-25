@@ -24,43 +24,34 @@ end
 
 #Call to the xmlrpc api to delete a rule
 def delete_acl(scope,user)
-  server = create_xmlrpc_server
   begin
+	server = create_xmlrpc_server
     puts server.call("plugin.acl.delAcl",scope,user)
     puts server.call("plugin.acl.delAcl",scope+":*",user)
-  rescue XMLRPC::FaultException => e
-    puts "Error: "
-    puts e.faultCode
-    puts e.faultString
+  rescue Exception
   end                          
 end
 
 #Call to the xmlrpc api to update/create a rule
 def update_acl(scope,user,permission)
-  server = create_xmlrpc_server
   begin
+	server = create_xmlrpc_server
     puts server.call("plugin.acl.delAcl",scope,user)
     puts server.call("plugin.acl.delAcl",scope+":*",user)
     if permission != 0
       puts server.call("plugin.acl.addAcl",scope,user,permission)
       puts server.call("plugin.acl.addAcl",scope+":*",user,permission)  
     end
-  rescue XMLRPC::FaultException => e
-    puts "Error: "
-    puts e.faultCode
-    puts e.faultString
+	rescue Exception
   end                          
 end
 
 #Authentificate a user
 def logoff_dokuwiki()
-  server = create_xmlrpc_server
   begin
+	server = create_xmlrpc_server
     puts server.call("plugin.acl.remoteLogoff")
-  rescue XMLRPC::FaultException => e
-    puts "Error: "
-    puts e.faultCode
-    puts e.faultString
+	rescue Exception
   end           
 end
 
@@ -82,7 +73,7 @@ def get_roles(user,project)
   roles = []
   begin
     member = Member.where("user_id = ? AND project_id = ?",user.id,project.id).first
-  member_roles = MemberRole.where("member_id = ?", member.id).all
+	member_roles = MemberRole.where("member_id = ?", member.id).all
     member_roles.each do |mr|
       role = Role.find(mr.role_id)
       roles << role
